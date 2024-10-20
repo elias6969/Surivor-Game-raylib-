@@ -1,44 +1,74 @@
-# RaylibCmakeSetup 
+# Survivor Game(sort of like minecraft) //This is an old one and will be deleted soon, the whole git crashed and i lost connection to this repository after all the changes i made, so had to make a new one
+Here is the new one [https://github.com/elias6969/Surivor-Game-raylib-]
 
----
+This project is a game currently under development using the Raylib library and C++. The game involves various entities such as players, enemies, minerals, trees, and villagers. The game logic includes collision detection, AI updates, and player interactions.
 
-## What is it?
+## Table of Contents
 
-I already set up a Raylib project for you! Take it and enjoy! You don't need to know CMake!
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
 
-![image](https://github.com/meemknight/raylibCmakeSetup/assets/36445656/c50ab777-0cde-4d80-8df6-a0fd483f169d)
+## Installation
 
+1. **Clone the repository:**
 
-<p>Opening the Solution:</p> 
+    ```sh
+    git clone https://github.com/yourusername/GameChallenge.git
+    cd GameChallenge
+    ```
 
-<img src="https://raw.githubusercontent.com/meemknight/photos/master/llge1.gif" width="350">
+2. **Install dependencies:**
 
-Or
+    Ensure you have Raylib installed. You can download it from [Raylib's official website](https://www.raylib.com/).
 
-<img src="https://raw.githubusercontent.com/meemknight/photos/master/llge2.gif" width="500">
+3. **Build the project:**
 
-Running the setup
+    Use CMake to build the project. Open a terminal in the project directory and run:
 
-Go to CMakeLists.txt, <kbd>CTRL + S</kbd> to make sure the solution was built.
+    ```sh
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+    ```
 
-Then, from this dropdown select mygame.exe
+## Usage
 
-<img src="https://raw.githubusercontent.com/meemknight/photos/master/llge3.gif" width="200">
+1. **Run the game:**
 
-<kbd>Ctrl + F5</kbd> to build (<kbd>F5</kbd> oppens the debugger, you usually want to press <kbd>Ctrl + F5</kbd> because it oppens faster like this.
+    After building the project, you can run the game executable from the `build` directory:
 
-<p>Adding files:<br>
-You should add .cpp in src/ and .h in include/ Whenever you add a new file CMake will ask you if you want to add that thing, say NO every time! I am already adding all of the things automatically!
-If you accidentally say YES, just remove that file from the CMake.lists
-</p>
+    ```sh
+    ./GameChallenge
+    ```
 
-<p>Refreshing your changes:<br>
-After you add a file, the changes should be automatically added but if you want to be sure, you can refresh changes by saving the CMake file. If you want to make a hard refresh (you might have to do that sometimes) close Visual Studio, delete the out folder, reopen VS, <kbd>CTRL + S</kbd> on CMakeLists.txt</p>
+2. **Controls:**
 
+    - Use the wasd keys to move the player.
+    - Interact with entities using the right click on the mouse button and the same one to shoot.
+    - to make the blue cube explode press space and R to reset
 
-# IMPORTANT!
-  To ship the game: 
-  In Cmakelists.txt, set the PRODUCTION_BUILD flag to ON to build a shippable version of your game. This will change the file paths to be relative to your exe (RESOURCES_PATH macro), will remove the console, and also will change the asserts to not allow people to debug them. To make sure the changes take effect I recommend deleting the out folder to make a new clean build!
+## Features
 
+- **Collision Detection:** The game includes collision detection for various entities.
+- **AI Updates:** The game updates AI for enemies and villagers.
+- **Player Interactions:** Players can interact with minerals, trees, enemies, and villagers.
+- **Weapon System:** The game includes a weapon system for the player.
 
-  Also, if you read the CMAKE, even if you don't know CMAKE you should understand what happens with the comments there and you can add libraries and also remove the console from there if you need to! (there is a commented line for that!)
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
