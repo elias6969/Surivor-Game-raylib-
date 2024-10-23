@@ -10,7 +10,7 @@ This project is a game currently under development using the Raylib library and 
 - [Contributing](#contributing)
 - [License](#license)
 
-##To know
+## To know
 Currently ive not really made it to be able to for everyone to be able to clone and run it
 
 ## Installation
