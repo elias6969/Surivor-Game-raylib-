@@ -14,25 +14,25 @@ Texture2D SwordTexture;
 Texture2D SilverTexture;
 Texture2D UseitemSpreadSheet;
 
-struct Tool {
+struct Tool
+{
     Rectangle rect;
 };
 
 Tool tools[6] = {
-    { {0, 0, 32, 32} },   // Pickaxe
-    { {32, 0, 32, 32} },  // Axe
-    { {64, 0, 32, 32} },  // Sword
-    { {96, 0, 32, 32} },  // Pot
-    { {0, 32, 32, 32} },  // Hoe
-    { {32, 32, 32, 32} }   // Harvest Tool
+    {{0, 0, 32, 32}},  // Pickaxe
+    {{32, 0, 32, 32}}, // Axe
+    {{64, 0, 32, 32}}, // Sword
+    {{96, 0, 32, 32}}, // Pot
+    {{0, 32, 32, 32}}, // Hoe
+    {{32, 32, 32, 32}} // Harvest Tool
 };
 
 std::vector<villagerinventory> inventoryTrading = {
-   {{0.0f, 0.0f}, GOLD, "gold", goldTexture},
-   {{0.0f,0.0f}, LIGHTGRAY, "Sword", SwordTexture},
-   {{0.0f,0.0f}, LIGHTGRAY, "Silver", SilverTexture},
-   {{0.0f,0.0f}, BROWN, "Items", UseitemSpreadSheet}
-};
+    {{0.0f, 0.0f}, GOLD, "gold", goldTexture},
+    {{0.0f, 0.0f}, LIGHTGRAY, "Sword", SwordTexture},
+    {{0.0f, 0.0f}, LIGHTGRAY, "Silver", SilverTexture},
+    {{0.0f, 0.0f}, BROWN, "Items", UseitemSpreadSheet}};
 bool pickedup = false;
 
 bool isMouseOverRectangle(Rectangle rect)
@@ -40,8 +40,8 @@ bool isMouseOverRectangle(Rectangle rect)
     Vector2 mousePosition = GetMousePosition();
     return CheckCollisionPointRec(mousePosition, rect);
 }
-template<typename T>
-void transferdata(const std::vector<T>& source, std::vector<T>& destination)
+template <typename T>
+void transferdata(const std::vector<T> &source, std::vector<T> &destination)
 {
     destination.insert(destination.end(), source.begin(), source.end());
 }
@@ -65,9 +65,12 @@ void init(std::vector<InventorySlot> &inventories, int slotsX, int slotsY, float
     SwordTexture = LoadTexture("C:/Users/elias/Downloads/GameChallenge/raylibCmakeSetup-master/resources/Assets/Crafting&Gathering/Gold.png");
     SilverTexture = LoadTexture("C:/Users/elias/Downloads/GameChallenge/raylibCmakeSetup-master/resources/Assets/Crafting&Gathering/Silver.png");
     UseitemSpreadSheet = LoadTexture("C:/Users/elias/Downloads/GameChallenge/raylibCmakeSetup-master/resources/UseItems.png");
-    if(goldTexture.id == 0 or SwordTexture.id == 0 or UseitemSpreadSheet.id == 0 or SilverTexture.id == 0){
+    if (goldTexture.id == 0 or SwordTexture.id == 0 or UseitemSpreadSheet.id == 0 or SilverTexture.id == 0)
+    {
         printf("Failed To load in Texture!!");
-    }else{
+    }
+    else
+    {
         printf("Succsefully loaded texture");
     }
 }
@@ -203,7 +206,7 @@ void DrawTradeInterface(const Villager &villager, bool &villagerinteraction, int
 
     // Drawing background for trade interface
     DrawRectangle(200, 200, 400, 300, Fade(GRAY, 0.8f)); // Semi-transparent background
-    DrawText("Trade Interface", 280, 180, 24, WHITE); // Title for context
+    DrawText("Trade Interface", 280, 180, 24, WHITE);    // Title for context
 
     // Draw the trade grid
     for (int y = 0; y < rows; y++)
@@ -228,7 +231,7 @@ void DrawTradeInterface(const Villager &villager, bool &villagerinteraction, int
                 DrawText(inventoryTrading[index].type, tradepos.x + 5, tradepos.y + 5, 20, WHITE); // Item type
 
                 // Placeholder for value
-                std::string valueText = "Value: " + std::to_string(100 * (index + 1)); // Sample value, replace with actual logic
+                std::string valueText = "Value: " + std::to_string(100 * (index + 1));    // Sample value, replace with actual logic
                 DrawText(valueText.c_str(), tradepos.x + 5, tradepos.y + 30, 18, YELLOW); // Item value in a different color
             }
         }
@@ -268,6 +271,39 @@ void HandleVillagerInteraction(const Villager &villager, float interactionTime, 
                  |___/
 */
 
+// Trail when player Runs
+void RunTrail(Player &player)
+{
+    // Check if the trail is empty or the player's position has changed
+    if (player.trail.empty() || player.PlayerPosition.x != player.trail.back().x || player.PlayerPosition.y != player.trail.back().y)
+    {
+        player.trail.emplace_back(player.PlayerPosition);
+    }
+
+    // Store the trail size to avoid repeated calls
+    size_t trailSize = player.trail.size();
+
+    // Remove the oldest position if the trail exceeds the limit
+    if (trailSize > 100)
+    {
+        player.trail.erase(player.trail.begin());
+    }
+}
+
+void Drawtrail(Player &player)
+{
+    size_t trailSize = player.trail.size();
+    for (size_t i = 0; i < trailSize; ++i)
+    {
+        DrawCircleV(player.trail[i], player.radius, WHITE);
+        // Ensure we do not access out-of-bounds elements
+        if (i < trailSize - 1)
+        {
+            DrawLineEx(player.trail[i], player.trail[i + 1], 5, RED);
+        }
+    }
+}
+
 // Function for player movement and interaction handling
 void PlayerCreation(Player &player, std::vector<Enemies> &enemies, std::vector<Mineral> &minerals, std::vector<Tree> &trees, std::vector<Villager> &villagers, std::vector<InventorySlot> &inventory, bool &InteractedWithVillager)
 {
@@ -301,9 +337,18 @@ void PlayerCreation(Player &player, std::vector<Enemies> &enemies, std::vector<M
         player.PlayerPosition.x -= player.Speed * deltaTime;
         DrawLineV(player.PlayerPosition, LeftPoint, RED);
     }
-
+    if (IsKeyDown(KEY_LEFT_SHIFT)) //When running
+    {
+        player.Speed = 300.0f; 
+        RunTrail(player);
+        Drawtrail(player);
+    }else if(IsKeyReleased(KEY_LEFT_SHIFT))
+    {
+        player.Speed = 200.0f;
+        player.trail.clear();
+    }
     // Draw the player
-    DrawCircleV(player.PlayerPosition, 20.0f, WHITE);
+    DrawCircleV(player.PlayerPosition, player.radius, WHITE);
 
     // Handle interaction and drawing for enemies
     for (const Enemies &enemy : enemies)
@@ -395,12 +440,14 @@ void PlayerCreation(Player &player, std::vector<Enemies> &enemies, std::vector<M
             }
         }
     }
+
     // Handle interaction and drawing for trees
     for (const Tree &tree : trees)
     {
         HandleInteraction(player, tree, RightPoint, "Chopping down", 20.0f);
         DrawEntity(tree);
     }
+
     float interactiontime = GetFrameTime();
 
     // Handle interaction and drawing for villagers
@@ -641,7 +688,8 @@ void Delete(const std::vector<Texture2D> &mineraltexture)
     {
         UnloadTexture(texture);
     }
-    for (const villagerinventory Items : inventoryTrading){
+    for (const villagerinventory Items : inventoryTrading)
+    {
         UnloadTexture(Items.texture);
     }
 }

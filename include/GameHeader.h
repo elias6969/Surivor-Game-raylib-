@@ -13,6 +13,8 @@ struct Player
     int widthofplayer;      // Width of the player
     int heightofplayer;     // Height of the player
     Texture2D texture;      // Texture of the player
+    float radius;           // Radius of the player
+    std::vector<Vector2> trail; // trail of player when running
 };
 
 // Enemies structure (if you want to store multiple enemies)

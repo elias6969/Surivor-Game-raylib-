@@ -62,7 +62,9 @@ int main(void)
 		200.0f,		 // Speed
 		5,			 // Width
 		10,			 // Height
-		PlayerSprite // Texture
+		PlayerSprite,
+		30.0f,		 // Radius
+		{}		 // Trail
 	};
 
 	Enemies entity = {
