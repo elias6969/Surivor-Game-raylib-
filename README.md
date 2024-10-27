@@ -1,6 +1,5 @@
-# Survivor Game(sort of like minecraft) //This is an old one and will be deleted soon, the whole git crashed and i lost connection to this repository after all the changes i made, so had to make a new one
-Here is the new one [https://github.com/elias6969/Surivor-Game-raylib-]
-
+# Survivor Game(sort of like minecraft)
+# New one
 This project is a game currently under development using the Raylib library and C++. The game involves various entities such as players, enemies, minerals, trees, and villagers. The game logic includes collision detection, AI updates, and player interactions.
 
 ## Table of Contents
@@ -10,6 +9,9 @@ This project is a game currently under development using the Raylib library and 
 - [Features](#features)
 - [Contributing](#contributing)
 - [License](#license)
+
+## To know
+Currently ive not really made it to be able to for everyone to be able to clone and run it
 
 ## Installation
 
